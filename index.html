@@ -460,6 +460,81 @@ a{text-decoration:none;color:inherit}
 .download-counter-badge{display:inline-flex;align-items:center;gap:6px;margin-top:8px;padding:6px 10px;border-radius:999px;background:rgba(53,224,161,.08);border:1px solid rgba(53,224,161,.2);color:#aef5d8;font-size:11px;font-weight:900}
 @media(max-width:620px){.student-form{grid-template-columns:1fr}.download-box{padding:18px}.download-box h3{font-size:21px}}
 
+
+/* ===== CLASS → BOARD → SUBJECT → CHAPTER REDESIGN ===== */
+.subject-section{display:none;margin-top:38px}
+.subject-section.active{display:block}
+.subject-section .section-title{
+  display:flex;text-align:left;align-items:end;justify-content:space-between;
+  margin-bottom:16px;
+}
+.library-path{
+  display:flex;align-items:center;justify-content:center;
+  min-height:48px;margin:0 0 20px;padding:12px 18px;
+  border-radius:14px;background:linear-gradient(135deg,rgba(53,216,255,.08),rgba(155,108,255,.09));
+  border:1px solid rgba(113,216,255,.20);color:#dce8f7;
+  font-size:14px;font-weight:900;text-align:center;
+}
+.subjects{
+  display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;
+}
+.subject{
+  padding:20px;border-radius:20px;background:linear-gradient(145deg,#0e1c2f,#10233b);
+  border:1px solid rgba(255,255,255,.10);box-shadow:0 10px 30px rgba(0,0,0,.16);
+  min-width:0;
+}
+.subject-head{
+  display:flex;align-items:center;gap:13px;margin-bottom:14px;
+  padding-bottom:14px;border-bottom:1px solid rgba(255,255,255,.08);
+}
+.subject-icon{
+  width:48px;height:48px;border-radius:15px;display:grid;place-items:center;
+  flex:none;font-size:22px;background:linear-gradient(135deg,rgba(53,216,255,.16),rgba(155,108,255,.20));
+}
+.subject h3{margin:0;font-size:20px}
+.chapter-list{display:grid;gap:11px}
+.chapter-card{
+  display:flex;align-items:center;justify-content:space-between;gap:16px;
+  padding:14px;border-radius:14px;
+  background:rgba(255,255,255,.035);
+  border:1px solid rgba(255,255,255,.075);
+}
+.chapter-card:hover{border-color:rgba(53,216,255,.28);background:rgba(255,255,255,.055)}
+.chapter-info{min-width:0;flex:1}
+.chapter-name{
+  display:block;font-size:15px;line-height:1.35;color:#f0f6ff;
+  font-weight:800;overflow-wrap:anywhere;
+}
+.chapter-name small{
+  display:block;margin-top:5px;color:#8fa8c3;font-size:11px;font-weight:700;
+}
+.chapter-actions{
+  display:flex;gap:7px;flex-wrap:wrap;justify-content:flex-end;flex:none;
+}
+.small-btn{
+  display:inline-flex;align-items:center;justify-content:center;
+  font-size:11px;font-weight:900;padding:8px 10px;border-radius:9px;
+  white-space:nowrap;border:1px solid var(--border);
+}
+.empty-material{
+  padding:15px;border-radius:13px;background:rgba(255,255,255,.03);
+  border:1px dashed rgba(255,255,255,.12);color:#8fa8c3;font-size:13px;line-height:1.55;
+}
+.board-panel{margin-top:24px}
+.board-choice-grid{grid-template-columns:repeat(2,minmax(0,1fr));}
+@media(max-width:800px){
+  .subjects{grid-template-columns:1fr}
+  .subject-section .section-title{align-items:flex-start;gap:12px}
+}
+@media(max-width:620px){
+  .subject-section .section-title{display:block;text-align:center}
+  .subject-section .section-title .back-btn{margin-top:12px}
+  .chapter-card{flex-direction:column;align-items:stretch}
+  .chapter-actions{justify-content:flex-start}
+  .small-btn{flex:1}
+  .board-choice-grid{grid-template-columns:1fr}
+}
+
 </style>
 
 </style>
@@ -526,7 +601,7 @@ a{text-decoration:none;color:inherit}
       <div class="section-title">
         <div>
           <h2>Choose Your Class</h2>
-          <p>Classes 8–10 are now divided into CBSE and CISCE / ICSE.</p>
+          <p>Choose a class first. Classes 8–10 are then divided into CBSE and CISCE / ICSE.</p>
         </div>
       </div>
 
@@ -558,61 +633,20 @@ a{text-decoration:none;color:inherit}
         <div class="section-title">
           <div>
             <h2 id="subjectHeading">Subjects & Chapters</h2>
-            <p id="subjectSubheading">Select a subject, then open or download a chapter PDF.</p>
+            <p id="subjectSubheading">Choose a class, then a subject to see only that class's study material.</p>
           </div>
           <button class="back-btn" onclick="resetLibrary()">↩ Change Class / Board</button>
         </div>
 
-        <div class="subjects">
-          <div class="subject">
-            <div class="subject-head"><div class="subject-icon">∑</div><h3>Mathematics</h3></div>
-            <div class="chapter"><span class="chapter-name">Chapter 1</span><div class="chapter-actions"><a class="small-btn read" href="#" onclick="pdfNotice(event)">Read PDF</a><a class="small-btn download" href="#" data-download-url="#" onclick="openDownloadForm(event,this)">Download</a></div></div>
-            <div class="chapter"><span class="chapter-name">Chapter 2</span><div class="chapter-actions"><a class="small-btn read" href="#" onclick="pdfNotice(event)">Read PDF</a><a class="small-btn download" href="#" data-download-url="#" onclick="openDownloadForm(event,this)">Download</a></div></div>
-            <div class="chapter"><span class="chapter-name">Chapter 3</span><div class="chapter-actions"><a class="small-btn read" href="#" onclick="pdfNotice(event)">Read PDF</a><a class="small-btn download" href="#" data-download-url="#" onclick="openDownloadForm(event,this)">Download</a></div></div>
-          </div>
-
-          <div class="subject">
-            <div class="subject-head"><div class="subject-icon">⚗</div><h3>Science</h3></div>
-            <div class="note" style="margin-top:0;margin-bottom:10px"><strong>Class 10 • CBSE • Full Chapter Notes</strong></div>
-            <div class="chapter"><span class="chapter-name">Chapter 4 — Carbon and Its Compounds<br><small>Full Chapter Notes</small></span><div class="chapter-actions"><a class="small-btn read" href="https://drive.google.com/file/d/1Oqwwz9Q1wTyy8P8zHYetK5eydWauCLIg/view?usp=drive_link" target="_blank" rel="noopener noreferrer">📖 Read PDF</a><a class="small-btn download" href="https://drive.google.com/uc?export=download&id=1Oqwwz9Q1wTyy8P8zHYetK5eydWauCLIg" data-download-url="https://drive.google.com/uc?export=download&id=1Oqwwz9Q1wTyy8P8zHYetK5eydWauCLIg" onclick="openDownloadForm(event,this)">⬇️ Download</a></div></div>
-            <div class="chapter"><span class="chapter-name">Chapter 5 — Life Processes<br><small>Full Chapter Notes</small></span><div class="chapter-actions"><a class="small-btn read" href="https://drive.google.com/file/d/1jNgkC4TlrBf-aIoxTZ0pKgz19h7iKmuV/view?usp=drive_link" target="_blank" rel="noopener noreferrer">📖 Read PDF</a><a class="small-btn download" href="https://drive.google.com/uc?export=download&id=1jNgkC4TlrBf-aIoxTZ0pKgz19h7iKmuV" data-download-url="https://drive.google.com/uc?export=download&id=1jNgkC4TlrBf-aIoxTZ0pKgz19h7iKmuV" onclick="openDownloadForm(event,this)">⬇️ Download</a></div></div>
-            <div class="chapter"><span class="chapter-name">Chapter 6 — Control and Coordination<br><small>Full Chapter Notes</small></span><div class="chapter-actions"><a class="small-btn read" href="https://drive.google.com/file/d/14kx6ax1tDS64HRs5QFj9F91ugc3UVW1H/view?usp=drive_link" target="_blank" rel="noopener noreferrer">📖 Read PDF</a><a class="small-btn download" href="https://drive.google.com/uc?export=download&id=14kx6ax1tDS64HRs5QFj9F91ugc3UVW1H" data-download-url="https://drive.google.com/uc?export=download&id=14kx6ax1tDS64HRs5QFj9F91ugc3UVW1H" onclick="openDownloadForm(event,this)">⬇️ Download</a></div></div>
-            <div class="chapter"><span class="chapter-name">Chapter 7 — How Do Organisms Reproduce?<br><small>Full Chapter Notes</small></span><div class="chapter-actions"><a class="small-btn read" href="https://drive.google.com/file/d/1MKTZQHTQQphtOGUMzewBvb_Wihb7P7_y/view?usp=drive_link" target="_blank" rel="noopener noreferrer">📖 Read PDF</a><a class="small-btn download" href="https://drive.google.com/uc?export=download&id=1MKTZQHTQQphtOGUMzewBvb_Wihb7P7_y" data-download-url="https://drive.google.com/uc?export=download&id=1MKTZQHTQQphtOGUMzewBvb_Wihb7P7_y" onclick="openDownloadForm(event,this)">⬇️ Download</a></div></div>
-            <div class="chapter"><span class="chapter-name">Chapter 8 — Heredity<br><small>Full Chapter Notes</small></span><div class="chapter-actions"><a class="small-btn read" href="https://drive.google.com/file/d/1di3eUfFSgCM_YPSaowKuhF58DZnqV-jF/view?usp=drive_link" target="_blank" rel="noopener noreferrer">📖 Read PDF</a><a class="small-btn download" href="https://drive.google.com/uc?export=download&id=1di3eUfFSgCM_YPSaowKuhF58DZnqV-jF" data-download-url="https://drive.google.com/uc?export=download&id=1di3eUfFSgCM_YPSaowKuhF58DZnqV-jF" onclick="openDownloadForm(event,this)">⬇️ Download</a></div></div>
-            <div class="chapter"><span class="chapter-name">Chapter 9 — Light – Reflection and Refraction<br><small>Full Chapter Notes</small></span><div class="chapter-actions"><a class="small-btn read" href="https://drive.google.com/file/d/1mBCfjTC2laS7N7AMoNOEky86Rq6IAX0V/view?usp=drive_link" target="_blank" rel="noopener noreferrer">📖 Read PDF</a><a class="small-btn download" href="https://drive.google.com/uc?export=download&id=1mBCfjTC2laS7N7AMoNOEky86Rq6IAX0V" data-download-url="https://drive.google.com/uc?export=download&id=1mBCfjTC2laS7N7AMoNOEky86Rq6IAX0V" onclick="openDownloadForm(event,this)">⬇️ Download</a></div></div>
-            <div class="chapter"><span class="chapter-name">Chapter 10 — The Human Eye and the Colourful World<br><small>Full Chapter Notes</small></span><div class="chapter-actions"><a class="small-btn read" href="https://drive.google.com/file/d/1vdOLT5Slq_kzrDLxTfJi4_fRxAcbyKSB/view?usp=drive_link" target="_blank" rel="noopener noreferrer">📖 Read PDF</a><a class="small-btn download" href="https://drive.google.com/uc?export=download&id=1vdOLT5Slq_kzrDLxTfJi4_fRxAcbyKSB" data-download-url="https://drive.google.com/uc?export=download&id=1vdOLT5Slq_kzrDLxTfJi4_fRxAcbyKSB" onclick="openDownloadForm(event,this)">⬇️ Download</a></div></div>
-            <div class="chapter"><span class="chapter-name">Chapter 11 — Electricity<br><small>Full Chapter Notes</small></span><div class="chapter-actions"><a class="small-btn read" href="https://drive.google.com/file/d/1shRIlXqj5aUshplXhSN4fM_1tCweIPpP/view?usp=drive_link" target="_blank" rel="noopener noreferrer">📖 Read PDF</a><a class="small-btn download" href="https://drive.google.com/uc?export=download&id=1shRIlXqj5aUshplXhSN4fM_1tCweIPpP" data-download-url="https://drive.google.com/uc?export=download&id=1shRIlXqj5aUshplXhSN4fM_1tCweIPpP" onclick="openDownloadForm(event,this)">⬇️ Download</a></div></div>
-            <div class="chapter"><span class="chapter-name">Chapter 12 — Magnetic Effects of Electric Current<br><small>Full Chapter Notes</small></span><div class="chapter-actions"><a class="small-btn read" href="https://drive.google.com/file/d/1ikBE13f4pItSWCS2uBJI4Nta7HiKmY1o/view?usp=drive_link" target="_blank" rel="noopener noreferrer">📖 Read PDF</a><a class="small-btn download" href="https://drive.google.com/uc?export=download&id=1ikBE13f4pItSWCS2uBJI4Nta7HiKmY1o" data-download-url="https://drive.google.com/uc?export=download&id=1ikBE13f4pItSWCS2uBJI4Nta7HiKmY1o" onclick="openDownloadForm(event,this)">⬇️ Download</a></div></div>
-            <div class="chapter"><span class="chapter-name">Chapter 13 — Our Environment<br><small>Full Chapter Notes</small></span><div class="chapter-actions"><a class="small-btn read" href="https://drive.google.com/file/d/1uNWUg59pTBNCjFz2Cf9QXpW7vBK3BEPC/view?usp=drive_link" target="_blank" rel="noopener noreferrer">📖 Read PDF</a><a class="small-btn download" href="https://drive.google.com/uc?export=download&id=1uNWUg59pTBNCjFz2Cf9QXpW7vBK3BEPC" data-download-url="https://drive.google.com/uc?export=download&id=1uNWUg59pTBNCjFz2Cf9QXpW7vBK3BEPC" onclick="openDownloadForm(event,this)">⬇️ Download</a></div></div>
-          </div>
-
-          <div class="subject">
-            <div class="subject-head"><div class="subject-icon">🌍</div><h3>Social Science</h3></div>
-            <div class="chapter"><span class="chapter-name">Chapter 1</span><div class="chapter-actions"><a class="small-btn read" href="#" onclick="pdfNotice(event)">Read PDF</a><a class="small-btn download" href="#" data-download-url="#" onclick="openDownloadForm(event,this)">Download</a></div></div>
-            <div class="chapter"><span class="chapter-name">Chapter 2</span><div class="chapter-actions"><a class="small-btn read" href="#" onclick="pdfNotice(event)">Read PDF</a><a class="small-btn download" href="#" data-download-url="#" onclick="openDownloadForm(event,this)">Download</a></div></div>
-            <div class="chapter"><span class="chapter-name">Chapter 3</span><div class="chapter-actions"><a class="small-btn read" href="#" onclick="pdfNotice(event)">Read PDF</a><a class="small-btn download" href="#" data-download-url="#" onclick="openDownloadForm(event,this)">Download</a></div></div>
-          </div>
-
-          <div class="subject">
-            <div class="subject-head"><div class="subject-icon">A</div><h3>English</h3></div>
-            <div class="chapter"><span class="chapter-name">Chapter 1</span><div class="chapter-actions"><a class="small-btn read" href="#" onclick="pdfNotice(event)">Read PDF</a><a class="small-btn download" href="#" data-download-url="#" onclick="openDownloadForm(event,this)">Download</a></div></div>
-            <div class="chapter"><span class="chapter-name">Chapter 2</span><div class="chapter-actions"><a class="small-btn read" href="#" onclick="pdfNotice(event)">Read PDF</a><a class="small-btn download" href="#" data-download-url="#" onclick="openDownloadForm(event,this)">Download</a></div></div>
-          </div>
-
-          <div class="subject">
-            <div class="subject-head"><div class="subject-icon">अ</div><h3>Hindi</h3></div>
-            <div class="chapter"><span class="chapter-name">Chapter 1</span><div class="chapter-actions"><a class="small-btn read" href="#" onclick="pdfNotice(event)">Read PDF</a><a class="small-btn download" href="#" data-download-url="#" onclick="openDownloadForm(event,this)">Download</a></div></div>
-            <div class="chapter"><span class="chapter-name">Chapter 2</span><div class="chapter-actions"><a class="small-btn read" href="#" onclick="pdfNotice(event)">Read PDF</a><a class="small-btn download" href="#" data-download-url="#" onclick="openDownloadForm(event,this)">Download</a></div></div>
-          </div>
-
-          <div class="subject">
-            <div class="subject-head"><div class="subject-icon">ੳ</div><h3>Punjabi</h3></div>
-            <div class="chapter"><span class="chapter-name">Chapter 1</span><div class="chapter-actions"><a class="small-btn read" href="#" onclick="pdfNotice(event)">Read PDF</a><a class="small-btn download" href="#" data-download-url="#" onclick="openDownloadForm(event,this)">Download</a></div></div>
-            <div class="chapter"><span class="chapter-name">Chapter 2</span><div class="chapter-actions"><a class="small-btn read" href="#" onclick="pdfNotice(event)">Read PDF</a><a class="small-btn download" href="#" data-download-url="#" onclick="openDownloadForm(event,this)">Download</a></div></div>
-          </div>
+        <div class="library-path" id="libraryPath">
+          <span>Choose a class to begin</span>
         </div>
 
-        <div class="note"><strong>📌 Download records:</strong> Students enter their information before a connected PDF download. For permanent records and a global download count, deploy the provided Google Apps Script endpoint and paste its /exec URL into <code>DOWNLOAD_LOG_ENDPOINT</code>.<br><br><strong>📌 Class 10 CBSE Science:</strong> Chapters 4–13 are now connected to their Google Drive full-chapter notes. More subjects and chapters can be added the same way.</div>
+        <div class="subjects" id="subjectContent"></div>
+
+        <div class="note" id="libraryNote">
+          <strong>📚 Study Library:</strong> Each class now has its own separate subject area. Chapters added to Class 8 Science, for example, will appear only under <strong>Class 8 → Science</strong>.
+        </div>
       </div>
     </section>
   </main>
@@ -776,24 +810,109 @@ a{text-decoration:none;color:inherit}
 let selectedClass = "";
 let selectedBoard = "";
 
+/*
+  Class-specific library data.
+  Existing Class 10 CBSE Science Google Drive links are preserved exactly.
+  Other class/subject areas are intentionally empty until their real PDFs are added.
+*/
+const libraryData = {
+  "6": {
+    icon: "🎓",
+    subjects: [
+      ["Mathematics","∑"],["Science","⚗"],["Social Science","🌍"],
+      ["English","A"],["Hindi","अ"],["Punjabi","ੳ"]
+    ]
+  },
+  "7": {
+    icon: "🎓",
+    subjects: [
+      ["Mathematics","∑"],["Science","⚗"],["Social Science","🌍"],
+      ["English","A"],["Hindi","अ"],["Punjabi","ੳ"]
+    ]
+  },
+  "8": {
+    boards: {
+      "CBSE": [["Mathematics","∑"],["Science","⚗"],["Social Science","🌍"],["English","A"],["Hindi","अ"],["Punjabi","ੳ"]],
+      "CISCE / ICSE": [["Mathematics","∑"],["Science","⚗"],["Social Science","🌍"],["English","A"],["Hindi","अ"],["Punjabi","ੳ"]]
+    }
+  },
+  "9": {
+    boards: {
+      "CBSE": [["Mathematics","∑"],["Science","⚗"],["Social Science","🌍"],["English","A"],["Hindi","अ"],["Punjabi","ੳ"]],
+      "CISCE / ICSE": [["Mathematics","∑"],["Science","⚗"],["Social Science","🌍"],["English","A"],["Hindi","अ"],["Punjabi","ੳ"]]
+    }
+  },
+  "10": {
+    boards: {
+      "CBSE": [
+        ["Mathematics","∑"],
+        ["Science","⚗",[
+          ["Chapter 4 — Carbon and Its Compounds","Full Chapter Notes",
+           "https://drive.google.com/file/d/1Oqwwz9Q1wTyy8P8zHYetK5eydWauCLIg/view?usp=drive_link",
+           "https://drive.google.com/uc?export=download&id=1Oqwwz9Q1wTyy8P8zHYetK5eydWauCLIg"],
+          ["Chapter 5 — Life Processes","Full Chapter Notes",
+           "https://drive.google.com/file/d/1jNgkC4TlrBf-aIoxTZ0pKgz19h7iKmuV/view?usp=drive_link",
+           "https://drive.google.com/uc?export=download&id=1jNgkC4TlrBf-aIoxTZ0pKgz19h7iKmuV"],
+          ["Chapter 6 — Control and Coordination","Full Chapter Notes",
+           "https://drive.google.com/file/d/14kx6ax1tDS64HRs5QFj9F91ugc3UVW1H/view?usp=drive_link",
+           "https://drive.google.com/uc?export=download&id=14kx6ax1tDS64HRs5QFj9F91ugc3UVW1H"],
+          ["Chapter 7 — How Do Organisms Reproduce?","Full Chapter Notes",
+           "https://drive.google.com/file/d/1MKTZQHTQQphtOGUMzewBvb_Wihb7P7_y/view?usp=drive_link",
+           "https://drive.google.com/uc?export=download&id=1MKTZQHTQQphtOGUMzewBvb_Wihb7P7_y"],
+          ["Chapter 8 — Heredity","Full Chapter Notes",
+           "https://drive.google.com/file/d/1di3eUfFSgCM_YPSaowKuhF58DZnqV-jF/view?usp=drive_link",
+           "https://drive.google.com/uc?export=download&id=1di3eUfFSgCM_YPSaowKuhF58DZnqV-jF"],
+          ["Chapter 9 — Light – Reflection and Refraction","Full Chapter Notes",
+           "https://drive.google.com/file/d/1mBCfjTC2laS7N7AMoNOEky86Rq6IAX0V/view?usp=drive_link",
+           "https://drive.google.com/uc?export=download&id=1mBCfjTC2laS7N7AMoNOEky86Rq6IAX0V"],
+          ["Chapter 10 — The Human Eye and the Colourful World","Full Chapter Notes",
+           "https://drive.google.com/file/d/1vdOLT5Slq_kzrDLxTfJi4_fRxAcbyKSB/view?usp=drive_link",
+           "https://drive.google.com/uc?export=download&id=1vdOLT5Slq_kzrDLxTfJi4_fRxAcbyKSB"],
+          ["Chapter 11 — Electricity","Full Chapter Notes",
+           "https://drive.google.com/file/d/1shRIlXqj5aUshplXhSN4fM_1tCweIPpP/view?usp=drive_link",
+           "https://drive.google.com/uc?export=download&id=1shRIlXqj5aUshplXhSN4fM_1tCweIPpP"],
+          ["Chapter 12 — Magnetic Effects of Electric Current","Full Chapter Notes",
+           "https://drive.google.com/file/d/1ikBE13f4pItSWCS2uBJI4Nta7HiKmY1o/view?usp=drive_link",
+           "https://drive.google.com/uc?export=download&id=1ikBE13f4pItSWCS2uBJI4Nta7HiKmY1o"],
+          ["Chapter 13 — Our Environment","Full Chapter Notes",
+           "https://drive.google.com/file/d/1uNWUg59pTBNCjFz2Cf9QXpW7vBK3BEPC/view?usp=drive_link",
+           "https://drive.google.com/uc?export=download&id=1uNWUg59pTBNCjFz2Cf9QXpW7vBK3BEPC"]
+        ]],
+        ["Social Science","🌍"],["English","A"],["Hindi","अ"],["Punjabi","ੳ"]
+      ],
+      "CISCE / ICSE": [["Mathematics","∑"],["Science","⚗"],["Social Science","🌍"],["English","A"],["Hindi","अ"],["Punjabi","ੳ"]]
+    }
+  }
+};
+
+function getSubjects(){
+  const cls = libraryData[selectedClass];
+  if(!cls) return [];
+  if(cls.boards) return cls.boards[selectedBoard] || [];
+  return cls.subjects || [];
+}
+
 function selectClass(event, cls){
   event.preventDefault();
   selectedClass = cls;
   selectedBoard = "";
+
   document.querySelectorAll('.class-card').forEach(c => c.classList.remove('selected-class'));
   event.currentTarget.classList.add('selected-class');
 
   const boardPanel = document.getElementById('boardSelection');
-  const path = document.getElementById('pathTitle');
+  const subjects = document.getElementById('subjects');
 
-  if(cls === "8" || cls === "9" || cls === "10"){
+  if(libraryData[cls].boards){
     boardPanel.classList.add('active');
-    path.textContent = "Class " + cls + " → Choose your Board";
-    document.getElementById('subjects').style.display = "none";
+    document.getElementById('pathTitle').textContent = "Class " + cls + " → Choose Your Board";
+    subjects.classList.remove('active');
     boardPanel.scrollIntoView({behavior:'smooth', block:'center'});
   } else {
     boardPanel.classList.remove('active');
-    showSubjects();
+    renderLibrary();
+    subjects.classList.add('active');
+    subjects.scrollIntoView({behavior:'smooth', block:'start'});
   }
 }
 
@@ -801,22 +920,59 @@ function selectBoard(board){
   selectedBoard = board;
   document.getElementById('pathTitle').textContent =
     "Class " + selectedClass + " → " + selectedBoard;
-  showSubjects();
+
+  renderLibrary();
+  document.getElementById('subjects').classList.add('active');
+  document.getElementById('subjects').scrollIntoView({behavior:'smooth', block:'start'});
 }
 
-function showSubjects(){
-  document.getElementById('subjects').style.display = "block";
+function renderLibrary(){
+  const content = document.getElementById('subjectContent');
   const heading = document.getElementById('subjectHeading');
   const sub = document.getElementById('subjectSubheading');
+  const path = document.getElementById('libraryPath');
 
-  if(selectedClass && selectedBoard){
-    heading.textContent = "Class " + selectedClass + " • " + selectedBoard;
-    sub.textContent = "Choose a subject, then open or download a chapter PDF.";
-  } else if(selectedClass){
-    heading.textContent = "Class " + selectedClass + " • Subjects & Chapters";
-    sub.textContent = "Choose a subject, then open or download a chapter PDF.";
-  }
-  document.getElementById('subjects').scrollIntoView({behavior:'smooth', block:'start'});
+  const boardText = selectedBoard ? " • " + selectedBoard : "";
+  heading.textContent = "Class " + selectedClass + boardText;
+  sub.textContent = "Choose a subject to view only the chapters belonging to this class.";
+  path.innerHTML = "<span>🏠 Class " + selectedClass + boardText + " &nbsp;→&nbsp; 📚 Subject &nbsp;→&nbsp; 📖 Chapter</span>";
+
+  const subjects = getSubjects();
+
+  content.innerHTML = subjects.map(subject => {
+    const name = subject[0];
+    const icon = subject[1];
+    const chapters = subject[2] || [];
+
+    let chapterHtml = "";
+
+    if(chapters.length){
+      chapterHtml = '<div class="chapter-list">' + chapters.map(ch => {
+        const title = ch[0], desc = ch[1], read = ch[2], download = ch[3];
+        return `
+          <div class="chapter-card">
+            <div class="chapter-info">
+              <span class="chapter-name">${title}<small>${desc}</small></span>
+            </div>
+            <div class="chapter-actions">
+              <a class="small-btn read" href="${read}" target="_blank" rel="noopener noreferrer">📖 Read PDF</a>
+              <a class="small-btn download" href="${download}" data-download-url="${download}" onclick="openDownloadForm(event,this)">⬇️ Download</a>
+            </div>
+          </div>`;
+      }).join('') + '</div>';
+    } else {
+      chapterHtml = '<div class="empty-material">📚 Study material for this subject will appear here when chapters are added.</div>';
+    }
+
+    return `
+      <div class="subject">
+        <div class="subject-head">
+          <div class="subject-icon">${icon}</div>
+          <h3>${name}</h3>
+        </div>
+        ${chapterHtml}
+      </div>`;
+  }).join('');
 }
 
 function resetLibrary(){
@@ -824,11 +980,12 @@ function resetLibrary(){
   selectedBoard = "";
   document.querySelectorAll('.class-card').forEach(c => c.classList.remove('selected-class'));
   document.getElementById('boardSelection').classList.remove('active');
-  document.getElementById('subjects').style.display = "none";
+  document.getElementById('subjects').classList.remove('active');
+  document.getElementById('subjectContent').innerHTML = "";
+  document.getElementById('subjectHeading').textContent = "Subjects & Chapters";
+  document.getElementById('subjectSubheading').textContent = "Choose a class, then a subject to see only that class's study material.";
   document.getElementById('classes').scrollIntoView({behavior:'smooth', block:'start'});
 }
 </script>
 
 </body>
-
-</html>
