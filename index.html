@@ -439,6 +439,27 @@ a{text-decoration:none;color:inherit}
 
 .chapter-name small{display:block;margin-top:3px;color:#9fb4cc;font-size:11px;font-weight:700}
 
+
+/* Student download information form */
+.download-modal{position:fixed;inset:0;z-index:1000;display:none;align-items:center;justify-content:center;padding:18px;background:rgba(2,8,18,.78);backdrop-filter:blur(10px)}
+.download-modal.active{display:flex}
+.download-box{width:min(680px,100%);max-height:92vh;overflow:auto;border:1px solid rgba(113,216,255,.28);border-radius:24px;background:linear-gradient(145deg,#0e1c2f,#111f35);box-shadow:0 25px 80px rgba(0,0,0,.45);padding:24px}
+.download-box h3{margin:0 0 6px;font-size:25px}
+.download-box .modal-sub{color:#a9b9cf;font-size:13px;line-height:1.5;margin-bottom:18px}
+.student-form{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}
+.student-form .full{grid-column:1/-1}
+.student-form label{display:flex;flex-direction:column;gap:6px;color:#dce8f7;font-size:12px;font-weight:800}
+.student-form input,.student-form select{width:100%;padding:11px 12px;border-radius:11px;border:1px solid rgba(255,255,255,.12);background:#091628;color:#fff;outline:none}
+.student-form input:focus,.student-form select:focus{border-color:rgba(53,216,255,.55);box-shadow:0 0 0 3px rgba(53,216,255,.08)}
+.form-actions{display:flex;justify-content:flex-end;gap:10px;margin-top:18px;flex-wrap:wrap}
+.form-actions button{border:1px solid var(--border);border-radius:11px;padding:11px 16px;font-weight:900;cursor:pointer}
+.cancel-btn{background:rgba(255,255,255,.06);color:#dce8f7}
+.submit-download-btn{background:linear-gradient(135deg,var(--blue),var(--violet));color:#fff}
+.form-status{margin-top:10px;font-size:12px;color:#a9b9cf;min-height:18px}
+.privacy-note{margin-top:12px;color:#8498b1;font-size:11px;line-height:1.5}
+.download-counter-badge{display:inline-flex;align-items:center;gap:6px;margin-top:8px;padding:6px 10px;border-radius:999px;background:rgba(53,224,161,.08);border:1px solid rgba(53,224,161,.2);color:#aef5d8;font-size:11px;font-weight:900}
+@media(max-width:620px){.student-form{grid-template-columns:1fr}.download-box{padding:18px}.download-box h3{font-size:21px}}
+
 </style>
 
 </style>
@@ -545,56 +566,98 @@ a{text-decoration:none;color:inherit}
         <div class="subjects">
           <div class="subject">
             <div class="subject-head"><div class="subject-icon">∑</div><h3>Mathematics</h3></div>
-            <div class="chapter"><span class="chapter-name">Chapter 1</span><div class="chapter-actions"><a class="small-btn read" href="#" onclick="pdfNotice(event)">Read PDF</a><a class="small-btn download" href="#" onclick="pdfNotice(event)">Download</a></div></div>
-            <div class="chapter"><span class="chapter-name">Chapter 2</span><div class="chapter-actions"><a class="small-btn read" href="#" onclick="pdfNotice(event)">Read PDF</a><a class="small-btn download" href="#" onclick="pdfNotice(event)">Download</a></div></div>
-            <div class="chapter"><span class="chapter-name">Chapter 3</span><div class="chapter-actions"><a class="small-btn read" href="#" onclick="pdfNotice(event)">Read PDF</a><a class="small-btn download" href="#" onclick="pdfNotice(event)">Download</a></div></div>
+            <div class="chapter"><span class="chapter-name">Chapter 1</span><div class="chapter-actions"><a class="small-btn read" href="#" onclick="pdfNotice(event)">Read PDF</a><a class="small-btn download" href="#" data-download-url="#" onclick="openDownloadForm(event,this)">Download</a></div></div>
+            <div class="chapter"><span class="chapter-name">Chapter 2</span><div class="chapter-actions"><a class="small-btn read" href="#" onclick="pdfNotice(event)">Read PDF</a><a class="small-btn download" href="#" data-download-url="#" onclick="openDownloadForm(event,this)">Download</a></div></div>
+            <div class="chapter"><span class="chapter-name">Chapter 3</span><div class="chapter-actions"><a class="small-btn read" href="#" onclick="pdfNotice(event)">Read PDF</a><a class="small-btn download" href="#" data-download-url="#" onclick="openDownloadForm(event,this)">Download</a></div></div>
           </div>
 
           <div class="subject">
             <div class="subject-head"><div class="subject-icon">⚗</div><h3>Science</h3></div>
             <div class="note" style="margin-top:0;margin-bottom:10px"><strong>Class 10 • CBSE • Full Chapter Notes</strong></div>
-            <div class="chapter"><span class="chapter-name">Chapter 4 — Carbon and Its Compounds<br><small>Full Chapter Notes</small></span><div class="chapter-actions"><a class="small-btn read" href="https://drive.google.com/file/d/1Oqwwz9Q1wTyy8P8zHYetK5eydWauCLIg/view?usp=drive_link" target="_blank" rel="noopener noreferrer">📖 Read PDF</a><a class="small-btn download" href="https://drive.google.com/uc?export=download&id=1Oqwwz9Q1wTyy8P8zHYetK5eydWauCLIg" target="_blank" rel="noopener noreferrer">⬇️ Download</a></div></div>
-            <div class="chapter"><span class="chapter-name">Chapter 5 — Life Processes<br><small>Full Chapter Notes</small></span><div class="chapter-actions"><a class="small-btn read" href="https://drive.google.com/file/d/1jNgkC4TlrBf-aIoxTZ0pKgz19h7iKmuV/view?usp=drive_link" target="_blank" rel="noopener noreferrer">📖 Read PDF</a><a class="small-btn download" href="https://drive.google.com/uc?export=download&id=1jNgkC4TlrBf-aIoxTZ0pKgz19h7iKmuV" target="_blank" rel="noopener noreferrer">⬇️ Download</a></div></div>
-            <div class="chapter"><span class="chapter-name">Chapter 6 — Control and Coordination<br><small>Full Chapter Notes</small></span><div class="chapter-actions"><a class="small-btn read" href="https://drive.google.com/file/d/14kx6ax1tDS64HRs5QFj9F91ugc3UVW1H/view?usp=drive_link" target="_blank" rel="noopener noreferrer">📖 Read PDF</a><a class="small-btn download" href="https://drive.google.com/uc?export=download&id=14kx6ax1tDS64HRs5QFj9F91ugc3UVW1H" target="_blank" rel="noopener noreferrer">⬇️ Download</a></div></div>
-            <div class="chapter"><span class="chapter-name">Chapter 7 — How Do Organisms Reproduce?<br><small>Full Chapter Notes</small></span><div class="chapter-actions"><a class="small-btn read" href="https://drive.google.com/file/d/1MKTZQHTQQphtOGUMzewBvb_Wihb7P7_y/view?usp=drive_link" target="_blank" rel="noopener noreferrer">📖 Read PDF</a><a class="small-btn download" href="https://drive.google.com/uc?export=download&id=1MKTZQHTQQphtOGUMzewBvb_Wihb7P7_y" target="_blank" rel="noopener noreferrer">⬇️ Download</a></div></div>
-            <div class="chapter"><span class="chapter-name">Chapter 8 — Heredity<br><small>Full Chapter Notes</small></span><div class="chapter-actions"><a class="small-btn read" href="https://drive.google.com/file/d/1di3eUfFSgCM_YPSaowKuhF58DZnqV-jF/view?usp=drive_link" target="_blank" rel="noopener noreferrer">📖 Read PDF</a><a class="small-btn download" href="https://drive.google.com/uc?export=download&id=1di3eUfFSgCM_YPSaowKuhF58DZnqV-jF" target="_blank" rel="noopener noreferrer">⬇️ Download</a></div></div>
-            <div class="chapter"><span class="chapter-name">Chapter 9 — Light – Reflection and Refraction<br><small>Full Chapter Notes</small></span><div class="chapter-actions"><a class="small-btn read" href="https://drive.google.com/file/d/1mBCfjTC2laS7N7AMoNOEky86Rq6IAX0V/view?usp=drive_link" target="_blank" rel="noopener noreferrer">📖 Read PDF</a><a class="small-btn download" href="https://drive.google.com/uc?export=download&id=1mBCfjTC2laS7N7AMoNOEky86Rq6IAX0V" target="_blank" rel="noopener noreferrer">⬇️ Download</a></div></div>
-            <div class="chapter"><span class="chapter-name">Chapter 10 — The Human Eye and the Colourful World<br><small>Full Chapter Notes</small></span><div class="chapter-actions"><a class="small-btn read" href="https://drive.google.com/file/d/1vdOLT5Slq_kzrDLxTfJi4_fRxAcbyKSB/view?usp=drive_link" target="_blank" rel="noopener noreferrer">📖 Read PDF</a><a class="small-btn download" href="https://drive.google.com/uc?export=download&id=1vdOLT5Slq_kzrDLxTfJi4_fRxAcbyKSB" target="_blank" rel="noopener noreferrer">⬇️ Download</a></div></div>
-            <div class="chapter"><span class="chapter-name">Chapter 11 — Electricity<br><small>Full Chapter Notes</small></span><div class="chapter-actions"><a class="small-btn read" href="https://drive.google.com/file/d/1shRIlXqj5aUshplXhSN4fM_1tCweIPpP/view?usp=drive_link" target="_blank" rel="noopener noreferrer">📖 Read PDF</a><a class="small-btn download" href="https://drive.google.com/uc?export=download&id=1shRIlXqj5aUshplXhSN4fM_1tCweIPpP" target="_blank" rel="noopener noreferrer">⬇️ Download</a></div></div>
-            <div class="chapter"><span class="chapter-name">Chapter 12 — Magnetic Effects of Electric Current<br><small>Full Chapter Notes</small></span><div class="chapter-actions"><a class="small-btn read" href="https://drive.google.com/file/d/1ikBE13f4pItSWCS2uBJI4Nta7HiKmY1o/view?usp=drive_link" target="_blank" rel="noopener noreferrer">📖 Read PDF</a><a class="small-btn download" href="https://drive.google.com/uc?export=download&id=1ikBE13f4pItSWCS2uBJI4Nta7HiKmY1o" target="_blank" rel="noopener noreferrer">⬇️ Download</a></div></div>
-            <div class="chapter"><span class="chapter-name">Chapter 13 — Our Environment<br><small>Full Chapter Notes</small></span><div class="chapter-actions"><a class="small-btn read" href="https://drive.google.com/file/d/1uNWUg59pTBNCjFz2Cf9QXpW7vBK3BEPC/view?usp=drive_link" target="_blank" rel="noopener noreferrer">📖 Read PDF</a><a class="small-btn download" href="https://drive.google.com/uc?export=download&id=1uNWUg59pTBNCjFz2Cf9QXpW7vBK3BEPC" target="_blank" rel="noopener noreferrer">⬇️ Download</a></div></div>
+            <div class="chapter"><span class="chapter-name">Chapter 4 — Carbon and Its Compounds<br><small>Full Chapter Notes</small></span><div class="chapter-actions"><a class="small-btn read" href="https://drive.google.com/file/d/1Oqwwz9Q1wTyy8P8zHYetK5eydWauCLIg/view?usp=drive_link" target="_blank" rel="noopener noreferrer">📖 Read PDF</a><a class="small-btn download" href="https://drive.google.com/uc?export=download&id=1Oqwwz9Q1wTyy8P8zHYetK5eydWauCLIg" data-download-url="https://drive.google.com/uc?export=download&id=1Oqwwz9Q1wTyy8P8zHYetK5eydWauCLIg" onclick="openDownloadForm(event,this)">⬇️ Download</a></div></div>
+            <div class="chapter"><span class="chapter-name">Chapter 5 — Life Processes<br><small>Full Chapter Notes</small></span><div class="chapter-actions"><a class="small-btn read" href="https://drive.google.com/file/d/1jNgkC4TlrBf-aIoxTZ0pKgz19h7iKmuV/view?usp=drive_link" target="_blank" rel="noopener noreferrer">📖 Read PDF</a><a class="small-btn download" href="https://drive.google.com/uc?export=download&id=1jNgkC4TlrBf-aIoxTZ0pKgz19h7iKmuV" data-download-url="https://drive.google.com/uc?export=download&id=1jNgkC4TlrBf-aIoxTZ0pKgz19h7iKmuV" onclick="openDownloadForm(event,this)">⬇️ Download</a></div></div>
+            <div class="chapter"><span class="chapter-name">Chapter 6 — Control and Coordination<br><small>Full Chapter Notes</small></span><div class="chapter-actions"><a class="small-btn read" href="https://drive.google.com/file/d/14kx6ax1tDS64HRs5QFj9F91ugc3UVW1H/view?usp=drive_link" target="_blank" rel="noopener noreferrer">📖 Read PDF</a><a class="small-btn download" href="https://drive.google.com/uc?export=download&id=14kx6ax1tDS64HRs5QFj9F91ugc3UVW1H" data-download-url="https://drive.google.com/uc?export=download&id=14kx6ax1tDS64HRs5QFj9F91ugc3UVW1H" onclick="openDownloadForm(event,this)">⬇️ Download</a></div></div>
+            <div class="chapter"><span class="chapter-name">Chapter 7 — How Do Organisms Reproduce?<br><small>Full Chapter Notes</small></span><div class="chapter-actions"><a class="small-btn read" href="https://drive.google.com/file/d/1MKTZQHTQQphtOGUMzewBvb_Wihb7P7_y/view?usp=drive_link" target="_blank" rel="noopener noreferrer">📖 Read PDF</a><a class="small-btn download" href="https://drive.google.com/uc?export=download&id=1MKTZQHTQQphtOGUMzewBvb_Wihb7P7_y" data-download-url="https://drive.google.com/uc?export=download&id=1MKTZQHTQQphtOGUMzewBvb_Wihb7P7_y" onclick="openDownloadForm(event,this)">⬇️ Download</a></div></div>
+            <div class="chapter"><span class="chapter-name">Chapter 8 — Heredity<br><small>Full Chapter Notes</small></span><div class="chapter-actions"><a class="small-btn read" href="https://drive.google.com/file/d/1di3eUfFSgCM_YPSaowKuhF58DZnqV-jF/view?usp=drive_link" target="_blank" rel="noopener noreferrer">📖 Read PDF</a><a class="small-btn download" href="https://drive.google.com/uc?export=download&id=1di3eUfFSgCM_YPSaowKuhF58DZnqV-jF" data-download-url="https://drive.google.com/uc?export=download&id=1di3eUfFSgCM_YPSaowKuhF58DZnqV-jF" onclick="openDownloadForm(event,this)">⬇️ Download</a></div></div>
+            <div class="chapter"><span class="chapter-name">Chapter 9 — Light – Reflection and Refraction<br><small>Full Chapter Notes</small></span><div class="chapter-actions"><a class="small-btn read" href="https://drive.google.com/file/d/1mBCfjTC2laS7N7AMoNOEky86Rq6IAX0V/view?usp=drive_link" target="_blank" rel="noopener noreferrer">📖 Read PDF</a><a class="small-btn download" href="https://drive.google.com/uc?export=download&id=1mBCfjTC2laS7N7AMoNOEky86Rq6IAX0V" data-download-url="https://drive.google.com/uc?export=download&id=1mBCfjTC2laS7N7AMoNOEky86Rq6IAX0V" onclick="openDownloadForm(event,this)">⬇️ Download</a></div></div>
+            <div class="chapter"><span class="chapter-name">Chapter 10 — The Human Eye and the Colourful World<br><small>Full Chapter Notes</small></span><div class="chapter-actions"><a class="small-btn read" href="https://drive.google.com/file/d/1vdOLT5Slq_kzrDLxTfJi4_fRxAcbyKSB/view?usp=drive_link" target="_blank" rel="noopener noreferrer">📖 Read PDF</a><a class="small-btn download" href="https://drive.google.com/uc?export=download&id=1vdOLT5Slq_kzrDLxTfJi4_fRxAcbyKSB" data-download-url="https://drive.google.com/uc?export=download&id=1vdOLT5Slq_kzrDLxTfJi4_fRxAcbyKSB" onclick="openDownloadForm(event,this)">⬇️ Download</a></div></div>
+            <div class="chapter"><span class="chapter-name">Chapter 11 — Electricity<br><small>Full Chapter Notes</small></span><div class="chapter-actions"><a class="small-btn read" href="https://drive.google.com/file/d/1shRIlXqj5aUshplXhSN4fM_1tCweIPpP/view?usp=drive_link" target="_blank" rel="noopener noreferrer">📖 Read PDF</a><a class="small-btn download" href="https://drive.google.com/uc?export=download&id=1shRIlXqj5aUshplXhSN4fM_1tCweIPpP" data-download-url="https://drive.google.com/uc?export=download&id=1shRIlXqj5aUshplXhSN4fM_1tCweIPpP" onclick="openDownloadForm(event,this)">⬇️ Download</a></div></div>
+            <div class="chapter"><span class="chapter-name">Chapter 12 — Magnetic Effects of Electric Current<br><small>Full Chapter Notes</small></span><div class="chapter-actions"><a class="small-btn read" href="https://drive.google.com/file/d/1ikBE13f4pItSWCS2uBJI4Nta7HiKmY1o/view?usp=drive_link" target="_blank" rel="noopener noreferrer">📖 Read PDF</a><a class="small-btn download" href="https://drive.google.com/uc?export=download&id=1ikBE13f4pItSWCS2uBJI4Nta7HiKmY1o" data-download-url="https://drive.google.com/uc?export=download&id=1ikBE13f4pItSWCS2uBJI4Nta7HiKmY1o" onclick="openDownloadForm(event,this)">⬇️ Download</a></div></div>
+            <div class="chapter"><span class="chapter-name">Chapter 13 — Our Environment<br><small>Full Chapter Notes</small></span><div class="chapter-actions"><a class="small-btn read" href="https://drive.google.com/file/d/1uNWUg59pTBNCjFz2Cf9QXpW7vBK3BEPC/view?usp=drive_link" target="_blank" rel="noopener noreferrer">📖 Read PDF</a><a class="small-btn download" href="https://drive.google.com/uc?export=download&id=1uNWUg59pTBNCjFz2Cf9QXpW7vBK3BEPC" data-download-url="https://drive.google.com/uc?export=download&id=1uNWUg59pTBNCjFz2Cf9QXpW7vBK3BEPC" onclick="openDownloadForm(event,this)">⬇️ Download</a></div></div>
           </div>
 
           <div class="subject">
             <div class="subject-head"><div class="subject-icon">🌍</div><h3>Social Science</h3></div>
-            <div class="chapter"><span class="chapter-name">Chapter 1</span><div class="chapter-actions"><a class="small-btn read" href="#" onclick="pdfNotice(event)">Read PDF</a><a class="small-btn download" href="#" onclick="pdfNotice(event)">Download</a></div></div>
-            <div class="chapter"><span class="chapter-name">Chapter 2</span><div class="chapter-actions"><a class="small-btn read" href="#" onclick="pdfNotice(event)">Read PDF</a><a class="small-btn download" href="#" onclick="pdfNotice(event)">Download</a></div></div>
-            <div class="chapter"><span class="chapter-name">Chapter 3</span><div class="chapter-actions"><a class="small-btn read" href="#" onclick="pdfNotice(event)">Read PDF</a><a class="small-btn download" href="#" onclick="pdfNotice(event)">Download</a></div></div>
+            <div class="chapter"><span class="chapter-name">Chapter 1</span><div class="chapter-actions"><a class="small-btn read" href="#" onclick="pdfNotice(event)">Read PDF</a><a class="small-btn download" href="#" data-download-url="#" onclick="openDownloadForm(event,this)">Download</a></div></div>
+            <div class="chapter"><span class="chapter-name">Chapter 2</span><div class="chapter-actions"><a class="small-btn read" href="#" onclick="pdfNotice(event)">Read PDF</a><a class="small-btn download" href="#" data-download-url="#" onclick="openDownloadForm(event,this)">Download</a></div></div>
+            <div class="chapter"><span class="chapter-name">Chapter 3</span><div class="chapter-actions"><a class="small-btn read" href="#" onclick="pdfNotice(event)">Read PDF</a><a class="small-btn download" href="#" data-download-url="#" onclick="openDownloadForm(event,this)">Download</a></div></div>
           </div>
 
           <div class="subject">
             <div class="subject-head"><div class="subject-icon">A</div><h3>English</h3></div>
-            <div class="chapter"><span class="chapter-name">Chapter 1</span><div class="chapter-actions"><a class="small-btn read" href="#" onclick="pdfNotice(event)">Read PDF</a><a class="small-btn download" href="#" onclick="pdfNotice(event)">Download</a></div></div>
-            <div class="chapter"><span class="chapter-name">Chapter 2</span><div class="chapter-actions"><a class="small-btn read" href="#" onclick="pdfNotice(event)">Read PDF</a><a class="small-btn download" href="#" onclick="pdfNotice(event)">Download</a></div></div>
+            <div class="chapter"><span class="chapter-name">Chapter 1</span><div class="chapter-actions"><a class="small-btn read" href="#" onclick="pdfNotice(event)">Read PDF</a><a class="small-btn download" href="#" data-download-url="#" onclick="openDownloadForm(event,this)">Download</a></div></div>
+            <div class="chapter"><span class="chapter-name">Chapter 2</span><div class="chapter-actions"><a class="small-btn read" href="#" onclick="pdfNotice(event)">Read PDF</a><a class="small-btn download" href="#" data-download-url="#" onclick="openDownloadForm(event,this)">Download</a></div></div>
           </div>
 
           <div class="subject">
             <div class="subject-head"><div class="subject-icon">अ</div><h3>Hindi</h3></div>
-            <div class="chapter"><span class="chapter-name">Chapter 1</span><div class="chapter-actions"><a class="small-btn read" href="#" onclick="pdfNotice(event)">Read PDF</a><a class="small-btn download" href="#" onclick="pdfNotice(event)">Download</a></div></div>
-            <div class="chapter"><span class="chapter-name">Chapter 2</span><div class="chapter-actions"><a class="small-btn read" href="#" onclick="pdfNotice(event)">Read PDF</a><a class="small-btn download" href="#" onclick="pdfNotice(event)">Download</a></div></div>
+            <div class="chapter"><span class="chapter-name">Chapter 1</span><div class="chapter-actions"><a class="small-btn read" href="#" onclick="pdfNotice(event)">Read PDF</a><a class="small-btn download" href="#" data-download-url="#" onclick="openDownloadForm(event,this)">Download</a></div></div>
+            <div class="chapter"><span class="chapter-name">Chapter 2</span><div class="chapter-actions"><a class="small-btn read" href="#" onclick="pdfNotice(event)">Read PDF</a><a class="small-btn download" href="#" data-download-url="#" onclick="openDownloadForm(event,this)">Download</a></div></div>
           </div>
 
           <div class="subject">
             <div class="subject-head"><div class="subject-icon">ੳ</div><h3>Punjabi</h3></div>
-            <div class="chapter"><span class="chapter-name">Chapter 1</span><div class="chapter-actions"><a class="small-btn read" href="#" onclick="pdfNotice(event)">Read PDF</a><a class="small-btn download" href="#" onclick="pdfNotice(event)">Download</a></div></div>
-            <div class="chapter"><span class="chapter-name">Chapter 2</span><div class="chapter-actions"><a class="small-btn read" href="#" onclick="pdfNotice(event)">Read PDF</a><a class="small-btn download" href="#" onclick="pdfNotice(event)">Download</a></div></div>
+            <div class="chapter"><span class="chapter-name">Chapter 1</span><div class="chapter-actions"><a class="small-btn read" href="#" onclick="pdfNotice(event)">Read PDF</a><a class="small-btn download" href="#" data-download-url="#" onclick="openDownloadForm(event,this)">Download</a></div></div>
+            <div class="chapter"><span class="chapter-name">Chapter 2</span><div class="chapter-actions"><a class="small-btn read" href="#" onclick="pdfNotice(event)">Read PDF</a><a class="small-btn download" href="#" data-download-url="#" onclick="openDownloadForm(event,this)">Download</a></div></div>
           </div>
         </div>
 
-        <div class="note"><strong>📌 Class 10 CBSE Science:</strong> Chapters 4–13 are now connected to their Google Drive full-chapter notes. More subjects and chapters can be added the same way.</div>
+        <div class="note"><strong>📌 Download records:</strong> Students enter their information before a connected PDF download. For permanent records and a global download count, deploy the provided Google Apps Script endpoint and paste its /exec URL into <code>DOWNLOAD_LOG_ENDPOINT</code>.<br><br><strong>📌 Class 10 CBSE Science:</strong> Chapters 4–13 are now connected to their Google Drive full-chapter notes. More subjects and chapters can be added the same way.</div>
       </div>
     </section>
   </main>
+
+
+<div class="download-modal" id="downloadModal" role="dialog" aria-modal="true" aria-labelledby="downloadModalTitle">
+  <div class="download-box">
+    <h3 id="downloadModalTitle">📥 Student Information for PDF Download</h3>
+    <div class="modal-sub">Please enter your details before downloading the study material. Your information is used only for study-library download records.</div>
+    <form class="student-form" id="studentDownloadForm">
+      <label>Student Name *
+        <input id="studentName" name="studentName" type="text" maxlength="80" required autocomplete="name" placeholder="Enter student name">
+      </label>
+      <label>Class *
+        <select id="studentClass" name="className" required>
+          <option value="">Select class</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option>
+        </select>
+      </label>
+      <label>Board *
+        <select id="studentBoard" name="board" required>
+          <option value="">Select board</option><option>CBSE</option><option>CISCE / ICSE</option><option>Other / Not Applicable</option>
+        </select>
+      </label>
+      <label>Mobile Number (optional)
+        <input id="studentMobile" name="mobile" type="tel" inputmode="numeric" maxlength="15" autocomplete="tel" placeholder="Optional">
+      </label>
+      <label>State *
+        <input id="studentState" name="state" type="text" maxlength="60" required autocomplete="address-level1" placeholder="Enter state">
+      </label>
+      <label>City *
+        <input id="studentCity" name="city" type="text" maxlength="60" required autocomplete="address-level2" placeholder="Enter city">
+      </label>
+      <label class="full">Country *
+        <input id="studentCountry" name="country" type="text" maxlength="60" required autocomplete="country-name" value="India">
+      </label>
+      <div class="full" id="downloadCounterBadge" style="display:none"></div>
+      <div class="full privacy-note">Please do not enter passwords, payment information, or other sensitive information. Mobile number is optional.</div>
+      <div class="full form-actions">
+        <button type="button" class="cancel-btn" onclick="closeDownloadForm()">Cancel</button>
+        <button type="submit" class="submit-download-btn">⬇️ Submit & Download PDF</button>
+      </div>
+      <div class="full form-status" id="downloadFormStatus"></div>
+    </form>
+  </div>
+</div>
 
 <footer class="footer">
     <div class="footer-main"><strong>SATKARTAR SCHOOL BHOLATH</strong> · Genius Coaching Bholath · Free Educational Study Material</div>
@@ -619,6 +682,89 @@ a{text-decoration:none;color:inherit}
       const el = document.getElementById("visitorCount");
       if (el) el.textContent = count.toLocaleString("en-IN");
     })();
+
+    // Google Apps Script Web App endpoint. After deploying the provided Code.gs,
+    // paste its /exec URL here. Until then, download logging is stored locally only.
+    const DOWNLOAD_LOG_ENDPOINT = "";
+
+    let pendingDownload = null;
+
+    function openDownloadForm(e, link){
+      e.preventDefault();
+      const url = link.dataset.downloadUrl || link.getAttribute("href");
+      if(!url || url === "#"){ alert("This PDF is not connected yet."); return; }
+      pendingDownload = { url, label: link.textContent.trim(), link: link };
+      document.getElementById("downloadFormStatus").textContent = "";
+      document.getElementById("downloadCounterBadge").style.display = "none";
+      document.getElementById("downloadModal").classList.add("active");
+      document.getElementById("studentName").focus();
+    }
+
+    function closeDownloadForm(){
+      document.getElementById("downloadModal").classList.remove("active");
+      pendingDownload = null;
+    }
+
+    document.getElementById("studentDownloadForm").addEventListener("submit", async function(e){
+      e.preventDefault();
+      if(!pendingDownload) return;
+
+      const status = document.getElementById("downloadFormStatus");
+      const btn = this.querySelector(".submit-download-btn");
+      const data = {
+        studentName: document.getElementById("studentName").value.trim(),
+        className: document.getElementById("studentClass").value,
+        board: document.getElementById("studentBoard").value,
+        mobile: document.getElementById("studentMobile").value.trim(),
+        state: document.getElementById("studentState").value.trim(),
+        city: document.getElementById("studentCity").value.trim(),
+        country: document.getElementById("studentCountry").value.trim(),
+        pdfName: pendingDownload.label,
+        pdfUrl: pendingDownload.url,
+        timestamp: new Date().toISOString()
+      };
+
+      btn.disabled = true;
+      status.textContent = "Saving download record…";
+
+      try{
+        if(DOWNLOAD_LOG_ENDPOINT){
+          await fetch(DOWNLOAD_LOG_ENDPOINT,{
+            method:"POST",
+            mode:"no-cors",
+            headers:{"Content-Type":"text/plain;charset=utf-8"},
+            body:JSON.stringify(data)
+          });
+        }
+
+        const localKey = "satkartar_download_count";
+        const localCount = Number(localStorage.getItem(localKey) || "0") + 1;
+        localStorage.setItem(localKey,String(localCount));
+
+        const chapterKey = "satkartar_download_" + btoa(unescape(encodeURIComponent(pendingDownload.url))).replace(/[^a-zA-Z0-9]/g,"").slice(0,40);
+        const chapterCount = Number(localStorage.getItem(chapterKey) || "0") + 1;
+        localStorage.setItem(chapterKey,String(chapterCount));
+
+        status.textContent = "Record saved. Opening PDF…";
+        window.open(pendingDownload.url,"_blank","noopener,noreferrer");
+        document.getElementById("downloadCounterBadge").textContent = "📊 This browser's download requests: " + localCount.toLocaleString("en-IN");
+        document.getElementById("downloadCounterBadge").style.display = "inline-flex";
+        setTimeout(closeDownloadForm,700);
+      }catch(err){
+        status.textContent = "The PDF can still be opened, but the record could not be sent.";
+        window.open(pendingDownload.url,"_blank","noopener,noreferrer");
+      }finally{
+        btn.disabled = false;
+      }
+    });
+
+    document.getElementById("downloadModal").addEventListener("click",function(e){
+      if(e.target === this) closeDownloadForm();
+    });
+
+    document.addEventListener("keydown",function(e){
+      if(e.key === "Escape") closeDownloadForm();
+    });
 
     function pdfNotice(e){
       e.preventDefault();
