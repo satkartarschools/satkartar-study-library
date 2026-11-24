@@ -1281,7 +1281,7 @@ function getSubjects(){
 }
 
 function selectClass(event, cls){
-  event.preventDefault();
+  if(event) event.preventDefault();
   selectedClass = cls;
   selectedBoard = "";
 
@@ -1293,9 +1293,12 @@ function selectClass(event, cls){
 
   if(libraryData[cls].boards){
     boardPanel.classList.add('active');
-    document.getElementById('pathTitle').textContent = "Class " + cls + " → Choose Your Board";
     subjects.classList.remove('active');
-    boardPanel.scrollIntoView({behavior:'smooth', block:'center'});
+    document.getElementById('pathTitle').textContent = "Class " + cls + " → Choose Your Board";
+    boardPanel.style.display = 'block';
+    setTimeout(function(){
+      boardPanel.scrollIntoView({behavior:'smooth', block:'center'});
+    }, 50);
   } else {
     boardPanel.classList.remove('active');
     renderLibrary();
@@ -1310,8 +1313,12 @@ function selectBoard(board){
     "Class " + selectedClass + " → " + selectedBoard;
 
   renderLibrary();
-  document.getElementById('subjects').classList.add('active');
-  document.getElementById('subjects').scrollIntoView({behavior:'smooth', block:'start'});
+  const subjectsPanel = document.getElementById('subjects');
+  subjectsPanel.classList.add('active');
+  subjectsPanel.style.display = 'block';
+  setTimeout(function(){
+    subjectsPanel.scrollIntoView({behavior:'smooth', block:'start'});
+  }, 50);
 }
 
 let selectedSubject = "";
