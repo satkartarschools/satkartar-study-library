@@ -679,6 +679,46 @@ a{text-decoration:none;color:inherit}
 
 </style>
 
+
+<style>
+/* FINAL CHAPTER / SUBJECT LAYOUT OVERRIDE */
+.subjects{
+  grid-template-columns:1fr !important;
+}
+.chapter-card{
+  display:block !important;
+  width:100% !important;
+  min-width:0 !important;
+}
+.chapter-info{
+  display:block !important;
+  width:100% !important;
+  min-width:0 !important;
+  flex:none !important;
+}
+.chapter-name{
+  display:block !important;
+  width:100% !important;
+  white-space:normal !important;
+  word-break:normal !important;
+  overflow-wrap:break-word !important;
+}
+.chapter-name small{
+  display:block !important;
+  width:100% !important;
+}
+.material-sections{
+  display:grid !important;
+  grid-template-columns:repeat(2,minmax(0,1fr)) !important;
+  width:100% !important;
+}
+@media(max-width:620px){
+  .material-sections{
+    grid-template-columns:1fr !important;
+  }
+}
+</style>
+
 </head>
 
 <body>
