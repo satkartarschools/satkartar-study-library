@@ -1471,17 +1471,6 @@ function resetLibrary(){
   document.getElementById('subjectSubheading').textContent = "Choose a class, then a subject to see its study material.";
   document.getElementById('classes').scrollIntoView({behavior:'smooth', block:'start'});
 }
-
-  selectedClass = "";
-  selectedBoard = "";
-  document.querySelectorAll('.class-card').forEach(c => c.classList.remove('selected-class'));
-  document.getElementById('boardSelection').classList.remove('active');
-  document.getElementById('subjects').classList.remove('active');
-  document.getElementById('subjectContent').innerHTML = "";
-  document.getElementById('subjectHeading').textContent = "Subjects & Chapters";
-  document.getElementById('subjectSubheading').textContent = "Choose a class, then a subject to see only that class's study material.";
-  document.getElementById('classes').scrollIntoView({behavior:'smooth', block:'start'});
-}
 </script>
 
 <button id="floatingTopBtn" type="button" aria-label="Back to top" title="Back to top">
