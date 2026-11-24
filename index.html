@@ -822,6 +822,9 @@ a{text-decoration:none;color:inherit}
 }
 .subject-choice-info{min-width:0;flex:1}
 .subject-choice-info h3{margin:0}
+.subject-name-link{display:inline-block;color:inherit;text-decoration:none;cursor:pointer;border-radius:7px;transition:color .2s ease,transform .2s ease}
+.subject-name-link:hover{color:#8ee9ff;transform:translateX(2px)}
+.subject-name-link:focus-visible{outline:2px solid #71dcff;outline-offset:3px}
 .subject-choice-info p{
   margin:5px 0 0;
   color:#8fa4bb;
@@ -1366,7 +1369,9 @@ function renderSubjectCards(){
         <div class="subject-head">
           <div class="subject-icon">${icon}</div>
           <div class="subject-choice-info">
-            <h3>${name}</h3>
+            <a href="#subjects" class="subject-name-link" onclick="selectSubject(${index}); return false;" aria-label="Open ${name} chapters">
+              <h3>${name}</h3>
+            </a>
             <p>${countText}</p>
           </div>
           <button class="subject-open-btn" onclick="selectSubject(${index})">
