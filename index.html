@@ -797,6 +797,21 @@ a{text-decoration:none;color:inherit}
 @media(max-width:1050px){.youtube-channel-link{font-size:10px;padding:7px 9px}}
 @media(max-width:820px){.youtube-channel-link{display:none}}
 </style>
+<style id="learning-nav-link-style">
+.nav-badge{
+  display:inline-flex;
+  align-items:center;
+  text-decoration:none;
+  cursor:pointer;
+  transition:transform .2s ease,border-color .2s ease,background .2s ease;
+}
+.nav-badge:hover{
+  transform:translateY(-2px);
+  border-color:rgba(53,216,255,.45);
+  background:rgba(53,216,255,.08);
+}
+.nav-badge:focus-visible{outline:2px solid #71dcff;outline-offset:3px}
+</style>
 </head>
 
 <body>
@@ -808,7 +823,7 @@ a{text-decoration:none;color:inherit}
 <a class="official-site-link" href="https://www.satkartarschools.com/" target="_blank" rel="noopener noreferrer" aria-label="Visit Satkartar Schools official website">🌐 <span>OFFICIAL SCHOOL WEBSITE</span></a><a class="youtube-channel-link" href="https://www.youtube.com/@satkartarinternationalschool" target="_blank" rel="noopener noreferrer" aria-label="Visit Satkartar International School YouTube channel">▶️ <span>YOUTUBE CHANNEL</span></a></div>
       </div>
       <div class="genius-credit">WITH HELP OF GENIUS COACHING BHOLATH</div>
-      <div class="nav-badge">FREE • STUDY • LEARN • GROW</div>
+      <a class="nav-badge" href="#boardSelection" aria-label="Start learning and choose your board">FREE • STUDY • LEARN • GROW</a>
     </div>
   </div>
 
