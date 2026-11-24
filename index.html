@@ -129,7 +129,7 @@ a{text-decoration:none;color:inherit}
 .class-card span{display:block;color:var(--muted);font-size:12px;margin-top:5px}
 .subject-section{margin-top:38px}
 .subjects{
-  display:grid;grid-template-columns:repeat(3,1fr);gap:16px;
+  display:grid;grid-template-columns:1fr;gap:16px;
 }
 .subject{
   padding:22px;border-radius:22px;
@@ -171,7 +171,7 @@ a{text-decoration:none;color:inherit}
   .hero{grid-template-columns:1fr}
   .logo-card{min-height:170px}
   .class-grid{grid-template-columns:repeat(3,1fr)}
-  .subjects{grid-template-columns:repeat(2,1fr)}
+  .subjects{grid-template-columns:1fr}
 }
 @media(max-width:620px){
   .nav{padding:12px 15px}
@@ -616,7 +616,7 @@ a{text-decoration:none;color:inherit}
   font-size:14px;font-weight:900;text-align:center;
 }
 .subjects{
-  display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;
+  display:grid;grid-template-columns:1fr;gap:18px;
 }
 .subject{
   padding:20px;border-radius:20px;background:linear-gradient(145deg,#0e1c2f,#10233b);
@@ -634,16 +634,33 @@ a{text-decoration:none;color:inherit}
 .subject h3{margin:0;font-size:20px}
 .chapter-list{display:grid;gap:11px}
 .chapter-card{
-  display:flex;align-items:center;justify-content:space-between;gap:16px;
-  padding:14px;border-radius:14px;
-  background:rgba(255,255,255,.035);
-  border:1px solid rgba(255,255,255,.075);
+  display:block;
+  width:100%;
+  box-sizing:border-box;
+  padding:18px;
+  border-radius:18px;
+  background:linear-gradient(145deg,rgba(18,38,64,.82),rgba(10,25,43,.72));
+  border:1px solid rgba(255,255,255,.09);
 }
 .chapter-card:hover{border-color:rgba(53,216,255,.28);background:rgba(255,255,255,.055)}
-.chapter-info{min-width:0;flex:1}
+.chapter-info{
+  display:block;
+  width:100%;
+  min-width:0;
+  padding:2px 2px 13px;
+  box-sizing:border-box;
+  border-bottom:1px solid rgba(255,255,255,.075);
+}
 .chapter-name{
-  display:block;font-size:15px;line-height:1.35;color:#f0f6ff;
-  font-weight:800;overflow-wrap:anywhere;
+  display:block;
+  width:100%;
+  font-size:17px;
+  line-height:1.35;
+  color:#f0f6ff;
+  font-weight:900;
+  white-space:normal;
+  word-break:normal;
+  overflow-wrap:break-word;
 }
 .chapter-name small{
   display:block;margin-top:5px;color:#8fa8c3;font-size:11px;font-weight:700;
@@ -680,45 +697,17 @@ a{text-decoration:none;color:inherit}
 </style>
 
 
-<style>
-/* FINAL CHAPTER / SUBJECT LAYOUT OVERRIDE */
-.subjects{
-  grid-template-columns:1fr !important;
-}
-.chapter-card{
-  display:block !important;
-  width:100% !important;
-  min-width:0 !important;
-}
-.chapter-info{
-  display:block !important;
-  width:100% !important;
-  min-width:0 !important;
-  flex:none !important;
-}
-.chapter-name{
-  display:block !important;
-  width:100% !important;
-  white-space:normal !important;
-  word-break:normal !important;
-  overflow-wrap:break-word !important;
-}
-.chapter-name small{
-  display:block !important;
-  width:100% !important;
-}
-.material-sections{
-  display:grid !important;
-  grid-template-columns:repeat(2,minmax(0,1fr)) !important;
-  width:100% !important;
-}
-@media(max-width:620px){
-  .material-sections{
-    grid-template-columns:1fr !important;
-  }
-}
-</style>
 
+
+<style id="canonical-learning-layout">
+/* Canonical learning layout: one full-width subject, horizontal chapter titles */
+.subjects{display:grid !important;grid-template-columns:1fr !important;gap:18px !important;}
+.chapter-card{display:block !important;width:100% !important;box-sizing:border-box !important;}
+.chapter-info{display:block !important;width:100% !important;min-width:0 !important;box-sizing:border-box !important;}
+.chapter-name{display:block !important;width:100% !important;white-space:normal !important;word-break:normal !important;overflow-wrap:break-word !important;}
+.material-sections{display:grid !important;grid-template-columns:repeat(2,minmax(0,1fr)) !important;width:100% !important;}
+@media(max-width:620px){.material-sections{grid-template-columns:1fr !important;}}
+</style>
 </head>
 
 <body>
