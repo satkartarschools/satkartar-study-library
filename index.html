@@ -876,14 +876,14 @@ const libraryData = {
            "https://drive.google.com/uc?export=download&id=1Ag4v2TU9LEWqTGbL8J1fV0xNN82USgAv"]
         ]],["Social Science","🌍"],["English","A"],["Hindi","अ"],["Punjabi","ੳ"]],
       "CISCE / ICSE": [["Mathematics","∑"],["Science","⚗"],["Social Science","🌍"],["English","A"],["Hindi","अ"],["Punjabi","ੳ"]],
-      "PSEB": [["Mathematics","∑"],["Science","⚗"],["Social Science","🌍"],["English","A"],["Punjabi","ੳ"],["Hindi","ਅ"]]
+      "PSEB": [["Mathematics","∑"],["Science","⚗"],["Social Science","🌍"],["English","A"],["Punjabi","ੳ"],["Hindi","अ"]]
     }
   },
   "9": {
     boards: {
       "CBSE": [["Mathematics","∑"],["Science","⚗"],["Social Science","🌍"],["English","A"],["Hindi","अ"],["Punjabi","ੳ"]],
       "CISCE / ICSE": [["Mathematics","∑"],["Science","⚗"],["Social Science","🌍"],["English","A"],["Hindi","अ"],["Punjabi","ੳ"]],
-      "PSEB": [["Mathematics","∑"],["Science","⚗"],["Social Science","🌍"],["English","A"],["Punjabi","ੳ"],["Hindi","ਅ"]]
+      "PSEB": [["Mathematics","∑"],["Science","⚗"],["Social Science","🌍"],["English","A"],["Punjabi","ੳ"],["Hindi","अ"]]
     }
   },
   "10": {
@@ -925,10 +925,32 @@ const libraryData = {
         ["Social Science","🌍"],["English","A"],["Hindi","अ"],["Punjabi","ੳ"]
       ],
       "CISCE / ICSE": [["Mathematics","∑"],["Science","⚗"],["Social Science","🌍"],["English","A"],["Hindi","अ"],["Punjabi","ੳ"]],
-      "PSEB": [["Mathematics","∑"],["Science","⚗"],["Social Science","🌍"],["English","A"],["Punjabi","ੳ"],["Hindi","ਅ"]]
+      "PSEB": [["Mathematics","∑"],["Science","⚗"],["Social Science","🌍"],["English","A"],["Punjabi","ੳ"],["Hindi","अ"]]
     }
   }
 };
+
+/*
+  PSEB synchronization:
+  For Classes 8, 9 and 10, Mathematics and Science follow the same
+  study-material data and links as CBSE. The PSEB entries intentionally
+  reference the CBSE subject arrays, so any chapter/link added to CBSE
+  Mathematics or Science is automatically available under PSEB too.
+*/
+["8","9","10"].forEach(function(cls){
+  if(libraryData[cls] && libraryData[cls].boards){
+    const cbse = libraryData[cls].boards["CBSE"];
+    const pseb = libraryData[cls].boards["PSEB"];
+    ["Mathematics","Science"].forEach(function(subjectName){
+      const cbseSubject = cbse.find(function(item){ return item[0] === subjectName; });
+      const psebIndex = pseb.findIndex(function(item){ return item[0] === subjectName; });
+      if(cbseSubject && psebIndex !== -1){
+        pseb[psebIndex] = cbseSubject;
+      }
+    });
+  }
+});
+
 
 function getSubjects(){
   const cls = libraryData[selectedClass];
